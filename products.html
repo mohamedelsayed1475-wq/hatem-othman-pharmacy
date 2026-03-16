@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كتالوج المنتجات | صيدلية د. حاتم عثمان</title>
+<meta name="description" content="تصفح أكثر من 7000 صنف دواء في صيدلية د. حاتم عثمان">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;direction:rtl}
+body{font-family:'Cairo',sans-serif;background:#faf7f0;color:#0f2318;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:'Cairo',sans-serif;border:none;outline:none}
+:root{--green:#0f2318;--green2:#1a3a2a;--green3:#2d5a40;--gold:#c9a84c;--gold2:#e8c97a;--cream:#faf7f0;--shadow:0 4px 20px rgba(0,0,0,.08);--radius:16px;}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--green)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+/* ── TOP TICKER ── */
+.top-ticker{position:fixed;top:0;width:100%;height:32px;background:var(--green);z-index:1100;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.15)}
+.ticker-wrap{width:100%;padding-right:100%;white-space:nowrap;animation:ticker 40s linear infinite}
+@keyframes ticker{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.ticker-item{display:inline-block;padding:0 2rem;font-size:11px;font-weight:700}
+.t-yellow{color:var(--gold2)}
+.t-red{color:#ff5252}
+
+/* NAVBAR */
+.navbar{position:fixed;top:32px;width:100%;z-index:1000;background:rgba(15,35,24,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.2);height:70px;display:flex;align-items:center}
+.wrap{max-width:1280px;margin:0 auto;padding:0 1.5rem;width:100%}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-name{color:var(--gold2);font-weight:800;font-size:14px}
+.logo-sub{color:rgba(255,255,255,.3);font-size:10px}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.7);font-weight:600;font-size:13px;transition:.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold2)}
+.cart-btn{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--green);font-weight:800;font-size:13px;padding:8px 16px;border-radius:50px;transition:.2s}
+.cart-btn:hover{transform:translateY(-1px)}
+.cart-count{background:var(--green);color:var(--gold);border-radius:50%;width:19px;height:19px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.admin-btn{color:rgba(255,255,255,.3);font-size:11px;border:1px solid rgba(255,255,255,.1);padding:6px 12px;border-radius:50px;transition:.2s}
+.admin-btn:hover{color:var(--gold2)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+.mob-menu{display:none;position:fixed;top:70px;right:0;left:0;background:var(--green);border-bottom:1px solid rgba(201,168,76,.2);padding:1rem 1.5rem;flex-direction:column;gap:4px;z-index:999}
+.mob-menu.open{display:flex}
+.mob-menu a{color:rgba(255,255,255,.8);font-weight:600;font-size:14px;padding:10px 12px;border-radius:10px;transition:.2s}
+.mob-menu a:hover{background:rgba(255,255,255,.06);color:var(--gold2)}
+
+/* SEARCH HEADER */
+.search-head{background:linear-gradient(135deg,var(--green),#1a3a2a);padding:6rem 0 2rem}
+.search-box{position:relative;max-width:680px;margin:0 auto 1.25rem}
+.search-box input{width:100%;padding:16px 55px 16px 20px;border-radius:50px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);color:#fff;font-size:14px;font-family:'Cairo',sans-serif;transition:.2s}
+.search-box input:focus{border-color:var(--gold);outline:none;background:rgba(255,255,255,.13)}
+.search-box input::placeholder{color:rgba(255,255,255,.4)}
+.search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--gold)}
+.criteria{display:flex;gap:7px;justify-content:center;flex-wrap:wrap}
+.crit-btn{padding:5px 14px;border-radius:50px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);cursor:pointer;transition:.2s;font-family:'Cairo',sans-serif}
+.crit-btn.active{background:rgba(201,168,76,.2);border-color:var(--gold);color:var(--gold2)}
+.search-meta{text-align:center;color:rgba(255,255,255,.45);font-size:12px;margin-top:10px}
+mark{background:rgba(201,168,76,.35);border-radius:3px;padding:1px 3px;color:inherit}
+
+/* CATALOG */
+.catalog{padding:2rem 0 4rem}
+.filter-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:1.5rem}
+.ftab{padding:7px 16px;border-radius:50px;font-weight:700;font-size:12px;border:2px solid #e0e0e0;background:#fff;color:#666;cursor:pointer;transition:.2s;font-family:'Cairo',sans-serif}
+.ftab.active,.ftab:hover{background:var(--green);color:var(--gold2);border-color:var(--green)}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1.1rem}
+.prod-card{background:#fff;border-radius:var(--radius);border:1px solid #f0f0f0;overflow:hidden;transition:.25s;box-shadow:var(--shadow)}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(0,0,0,.1)}
+.prod-img{height:140px;background:linear-gradient(135deg,#faf7f0,#f0ebe0);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.prod-img-icon{font-size:3.2rem;animation:fl 3s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.prod-img img{width:100%;height:100%;object-fit:contain;padding:8px}
+.prod-badges{position:absolute;top:8px;right:8px}
+.badge{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--green);font-weight:800;font-size:10px;padding:2px 8px;border-radius:50px}
+.badge.out{background:#e53935;color:#fff}
+.out-overlay{position:absolute;inset:0;background:rgba(0,0,0,.38);display:flex;align-items:center;justify-content:center}
+.out-overlay span{background:#e53935;color:#fff;font-weight:800;font-size:12px;padding:5px 14px;border-radius:50px}
+.prod-body{padding:12px}
+.prod-cat{color:#3d7a55;font-size:10px;font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+.prod-name{font-weight:700;font-size:13px;line-height:1.4;margin-bottom:2px;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod-name-en{color:#aaa;font-size:10px;margin-bottom:3px}
+.prod-company{color:var(--gold);font-size:10px;font-weight:700;margin-bottom:6px}
+.prod-active{color:#666;font-size:10px;margin-bottom:4px}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid #f5f5f5}
+.prod-price{font-weight:800;font-size:16px;color:var(--green)}
+.prod-price small{font-size:10px;font-weight:600;color:#aaa;margin-right:1px}
+.add-btn{width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--gold);font-size:17px;display:flex;align-items:center;justify-content:center;transition:.2s;border:none;cursor:pointer}
+.add-btn:hover{background:var(--green3);transform:scale(1.1)}
+
+.empty-state{grid-column:1/-1;text-align:center;padding:4rem;color:#aaa}
+.empty-icon{font-size:3rem;display:block;margin-bottom:1rem}
+
+/* PAGINATION */
+.pagination{display:flex;justify-content:center;gap:7px;margin-top:2.5rem;flex-wrap:wrap}
+.pg-btn{width:36px;height:36px;border-radius:50%;border:2px solid #e0e0e0;background:#fff;color:#666;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;font-family:'Cairo',sans-serif}
+.pg-btn:hover{border-color:var(--green3);color:var(--green)}
+.pg-btn.active{background:var(--green);border-color:var(--green);color:var(--gold2)}
+.pg-btn:disabled{opacity:.35;cursor:default}
+
+/* CART SIDEBAR */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;opacity:0;pointer-events:none;transition:.3s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-sidebar{position:fixed;top:0;left:0;bottom:0;width:min(410px,100vw);background:var(--green);z-index:2001;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);box-shadow:8px 0 40px rgba(0,0,0,.4)}
+.cart-sidebar.open{transform:translateX(0)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.cart-head h2{color:var(--gold2);font-weight:800;font-size:17px}
+.cart-close{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:.2s;border:none;cursor:pointer}
+.cart-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.cart-items-wrap{flex:1;overflow-y:auto;padding:.9rem 1.4rem;display:flex;flex-direction:column;gap:10px}
+.cart-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:rgba(255,255,255,.3);text-align:center;padding:2.5rem}
+.cart-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px}
+.ci-icon{font-size:1.6rem;flex-shrink:0}
+.ci-info{flex:1;min-width:0}
+.ci-name{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-price{color:var(--gold);font-size:13px;font-weight:800}
+.ci-qty{display:flex;align-items:center;gap:7px}
+.qty-btn{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:13px;cursor:pointer;border:none;transition:.2s}
+.qty-btn:hover{background:rgba(201,168,76,.25)}
+.qty-n{color:#fff;font-weight:700;font-size:13px;min-width:18px;text-align:center}
+.rm-btn{width:24px;height:24px;border-radius:50%;background:rgba(229,57,53,.15);color:#ef9a9a;font-size:12px;cursor:pointer;border:none;transition:.2s}
+.rm-btn:hover{background:rgba(229,57,53,.3);color:#e53935}
+.cart-foot{padding:1.1rem 1.4rem;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:10px}
+.cart-tot-row{display:flex;justify-content:space-between;align-items:center}
+.cart-tot-lbl{color:rgba(255,255,255,.55);font-size:13px}
+.cart-tot-val{color:var(--gold);font-weight:900;font-size:20px}
+.field{width:100%;padding:11px 14px;background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:13px;font-family:'Cairo',sans-serif;transition:.2s}
+.field:focus{border-color:var(--gold);outline:none}
+.field::placeholder{color:rgba(255,255,255,.38)}
+.pay-row{display:flex;gap:7px}
+.pay-btn{flex:1;padding:7px 5px;border-radius:9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:rgba(255,255,255,.55);font-size:11px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;transition:.2s}
+.pay-btn.active{background:rgba(201,168,76,.18);border-color:var(--gold);color:var(--gold2)}
+.order-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--green);font-weight:800;font-size:14px;border-radius:10px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;transition:.2s}
+.order-btn:hover{transform:translateY(-1px)}
+.order-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+/* FOOTER */
+.footer{background:var(--green);padding:1.5rem 0;border-top:1px solid rgba(201,168,76,.15)}
+.footer-bottom{text-align:center;color:rgba(255,255,255,.22);font-size:11px}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:7px;align-items:center;pointer-events:none}
+.toast{display:flex;align-items:center;gap:8px;padding:11px 20px;border-radius:50px;font-weight:700;font-size:13px;box-shadow:0 8px 25px rgba(0,0,0,.2);animation:su .3s ease;white-space:nowrap}
+@keyframes su{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.toast.s{background:#2e7d32;color:#fff}.toast.e{background:#e53935;color:#fff}.toast.i{background:var(--green);color:var(--gold2);border:1px solid rgba(201,168,76,.3)}
+
+/* WHATSAPP */
+.wa-float{position:fixed;bottom:22px;right:22px;z-index:999;width:54px;height:54px;border-radius:50%;background:#25D366;box-shadow:0 8px 22px rgba(37,211,102,.4);display:flex;align-items:center;justify-content:center;transition:.2s}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float svg{width:26px;height:26px;fill:white}
+
+@media(max-width:768px){.nav-links,.admin-btn{display:none}.hamburger{display:flex}.products-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.products-grid{grid-template-columns:repeat(2,1fr);gap:8px}.prod-body{padding:9px}}
+</style>
+</head>
+<body>
+
+<!-- TOP TICKER -->
+<div class="top-ticker">
+  <div class="ticker-wrap" id="tickerWrap">
+    <span class="ticker-item t-yellow">صيدلية د. حاتم عثمان ترحب بكم...</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">💊</div>
+        <div><div class="logo-name">صيدلية د. حاتم عثمان</div><div class="logo-sub">Dr. Hatem Othman Pharmacy</div></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="products.html" class="active">المنتجات</a></li>
+        <li><a href="index.html#offers">العروض</a></li>
+        <li><a href="index.html#about">من نحن</a></li>
+        <li><a href="index.html#contact">تواصل معنا</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="cart-btn" id="openCart">🛒 السلة <span class="cart-count" id="cartCount" style="display:none">0</span></button>
+        <a href="admin.html" class="admin-btn">إدارة</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html">🏠 الرئيسية</a>
+  <a href="products.html">💊 المنتجات</a>
+  <a href="index.html#offers">🔥 العروض</a>
+  <a href="index.html#contact">📞 تواصل معنا</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search-head">
+  <div class="wrap">
+    <h1 style="color:#fff;text-align:center;font-size:1.7rem;font-weight:800;margin-bottom:6px">🔍 ابحث عن دوائك</h1>
+    <p id="totalCount" style="color:rgba(255,255,255,.4);text-align:center;font-size:13px;margin-bottom:1.25rem">جاري التحميل...</p>
+    <div class="search-box">
+      <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="اسم الدواء، الباركود، المادة الفعالة..." autocomplete="off">
+    </div>
+    <div class="criteria">
+      <button class="crit-btn active" data-c="all">كل الحقول</button>
+      <button class="crit-btn" data-c="name_ar">اسم عربي</button>
+      <button class="crit-btn" data-c="name_en">اسم إنجليزي</button>
+      <button class="crit-btn" data-c="barcode">باركود</button>
+      <button class="crit-btn" data-c="active">مادة فعالة</button>
+      <button class="crit-btn" data-c="company">الشركة</button>
+    </div>
+    <div class="search-meta" id="searchMeta"></div>
+  </div>
+</div>
+
+<!-- CATALOG -->
+<section class="catalog">
+  <div class="wrap">
+    <div class="filter-tabs" id="filterTabs"></div>
+    <div class="products-grid" id="prodGrid">
+      <div class="empty-state"><span class="empty-icon" style="animation:fl 2s ease-in-out infinite">💊</span>جاري التحميل...</div>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap"><div class="footer-bottom">© <span id="yr"></span> صيدلية د. حاتم عثمان — جميع الحقوق محفوظة</div></div>
+</footer>
+
+<!-- CART -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-head"><h2>🛒 سلة الشراء</h2><button class="cart-close" id="closeCart">✕</button></div>
+  <div class="cart-items-wrap" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="cart-tot-row"><span class="cart-tot-lbl">الإجمالي:</span><span class="cart-tot-val" id="cartTotal">0 ج.م</span></div>
+    <input class="field" id="orderName" placeholder="👤 اسمك الكريم *">
+    <input class="field" id="orderPhone" placeholder="📞 رقم هاتفك *" type="tel">
+    <input class="field" id="orderAddress" placeholder="📍 العنوان بالتفصيل *">
+    <div class="pay-row">
+      <button class="pay-btn active" data-pay="cash">💵 كاش</button>
+      <button class="pay-btn" data-pay="vodafone">📱 فودافون</button>
+      <button class="pay-btn" data-pay="instapay">⚡ InstaPay</button>
+    </div>
+    <button class="order-btn" id="submitOrder">✅ إرسال الطلب على واتساب</button>
+  </div>
+</div>
+
+<a href="https://wa.me/201008589529" target="_blank" class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// ══ CONFIG ══
+const API_URL = window.location.port === '3000' ? '' : 'http://localhost:3000';
+const API_BASE = API_URL + '/api';
+
+// ══ TICKER ══
+async function loadTicker(){
+  const wrap=document.getElementById('tickerWrap');
+  if(!wrap) return;
+  try{
+    const r=await fetch(API_URL+'/api/config/ticker');
+    const d=await r.json();
+    if(d.messages && Array.isArray(d.messages)){
+      if(d.messages.length > 0) {
+        wrap.innerHTML=d.messages.map(m=>{
+          let cls='t-yellow';
+          if(m.startsWith('🔴')) cls='t-red';
+          return `<span class="ticker-item ${cls}">${m}</span>`;
+        }).join('');
+      } else {
+        wrap.innerHTML = '<span class="ticker-item t-yellow">أهلاً بكم في صيدلية د. حاتم عثمان</span>';
+      }
+    }
+  }catch(e){console.error('Ticker failed',e);}
+}
+
+const PER_PAGE=24;
+const CATS={medicine:'أدوية',vitamins:'فيتامينات',skincare:'عناية بالبشرة',devices:'أجهزة طبية',baby:'مستلزمات الأطفال',other:'أخرى'};
+
+// ══ STATE ══
+let allProducts=[],filtered=[],page=1,query='',criterion='all',catFilter='all',payMethod='cash';
+let cart=JSON.parse(localStorage.getItem('ph_cart')||'[]');
+
+// ══ API ══
+async function fbGetAll(){
+  const r=await fetch(`${API_BASE}/products`);
+  const d=await r.json();
+  const docs = d.documents || [];
+  return docs.map(doc=>{
+    const f=doc.fields||{};
+    const o={id:doc.name.split('/').pop()};
+    Object.keys(f).forEach(k=>{
+      const v=f[k];
+      if(v.stringValue!==undefined) o[k]=v.stringValue;
+      else if(v.integerValue!==undefined) o[k]=parseInt(v.integerValue);
+      else if(v.doubleValue!==undefined) o[k]=parseFloat(v.doubleValue);
+      else if(v.booleanValue!==undefined) o[k]=v.booleanValue;
+      else o[k]=null;
+    });
+    return o;
+  });
+}
+
+async function fbAddOrder(data){
+  const fields={};
+  Object.keys(data).forEach(k=>{
+    if(data[k]===null||data[k]===undefined) fields[k]={nullValue:null};
+    else if(typeof data[k]==='number') fields[k]={doubleValue:data[k]};
+    else fields[k]={stringValue:String(data[k])};
+  });
+  return await fetch(`${API_BASE}/orders`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields})});
+}
+
+// ══ SEARCH ══
+function scoreMatch(q,v){
+  if(!v)return 0;
+  const a=q.toLowerCase().trim(),b=v.toLowerCase().trim();
+  if(b===a)return 100;if(b.startsWith(a))return 90;
+  if(b.includes(' '+a)||b.includes(a+' '))return 80;
+  if(b.includes(a))return 70;
+  return 0;
+}
+
+function applyFilters(){
+  const q=query.toLowerCase().trim();
+  let res=[...allProducts];
+  if(catFilter!=='all') res=res.filter(p=>p.cat===catFilter);
+  if(q){
+    res=res.map(p=>{
+      let s=0;
+      if(criterion==='name_ar')      s=scoreMatch(q,p.name);
+      else if(criterion==='name_en') s=scoreMatch(q,p.name_en||'');
+      else if(criterion==='barcode') s=(p.barcode||'').includes(q)?100:0;
+      else if(criterion==='active')  s=scoreMatch(q,p.active_ingredient||'');
+      else if(criterion==='company') s=scoreMatch(q,p.company||'');
+      else s=Math.max(scoreMatch(q,p.name),scoreMatch(q,p.name_en||''),(p.barcode||'').includes(q)?95:0,scoreMatch(q,p.active_ingredient||'')*0.8,scoreMatch(q,p.company||'')*0.6);
+      return{p,s};
+    }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.p);
+  }
+  filtered=res;page=1;
+  renderProducts();renderPagination();updateMeta();
+}
+
+function hl(text,q){
+  if(!q||!text)return text||'';
+  const r=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return text.replace(new RegExp(`(${r})`,'gi'),'<mark>$1</mark>');
+}
+
+// ══ RENDER ══
+function prodCardHTML(p){
+  
+  const q=query;
+  return`<div class="prod-card">
+    <div class="prod-img">
+      ${p.image?`<img src="${p.image}" alt="${p.name}" loading="lazy">`:`<span class="prod-img-icon">${p.icon||'💊'}</span>`}
+      <div class="prod-badges">
+        ${p.badge?`<span class="badge">${p.badge}</span>`:''}
+      </div>
+    </div>
+    <div class="prod-body">
+      <div class="prod-cat">${CATS[p.cat]||p.cat||''}</div>
+      <div class="prod-name">${hl(p.name,q)}</div>
+      ${p.name_en?`<div class="prod-name-en">${hl(p.name_en,q)}</div>`:''}
+      ${p.company?`<div class="prod-company">🏭 ${hl(p.company,q)}</div>`:''}
+      ${p.active_ingredient?`<div class="prod-active">⚗️ ${hl(p.active_ingredient,q)}</div>`:''}
+      <div class="prod-foot">
+        <div class="prod-price">${p.price} <small>ج.م</small></div>
+        <button class="add-btn" onclick='addToCart(${JSON.stringify(p).replace(/'/g,"&#39;")})' >+</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderProducts(){
+  const grid=document.getElementById('prodGrid');
+  if(!grid)return;
+  const start=(page-1)*PER_PAGE;
+  const items=filtered.slice(start,start+PER_PAGE);
+  if(!items.length){
+    grid.innerHTML=`<div class="empty-state"><span class="empty-icon">🔍</span><p>لا توجد نتائج مطابقة</p>${query?`<button onclick="clearSearch()" style="margin-top:10px;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px">✕ مسح البحث</button>`:''}</div>`;
+    return;
+  }
+  grid.innerHTML=items.map(prodCardHTML).join('');
+}
+
+function renderPagination(){
+  const wrap=document.getElementById('pagination');
+  if(!wrap)return;
+  const total=Math.ceil(filtered.length/PER_PAGE);
+  if(total<=1){wrap.innerHTML='';return;}
+  let html=`<button class="pg-btn" onclick="goPage(${page-1})" ${page===1?'disabled':''}>→</button>`;
+  for(let i=1;i<=total;i++){
+    if(total>9&&Math.abs(i-page)>2&&i!==1&&i!==total){
+      if(i===2||i===total-1) html+=`<span style="color:#aaa;padding:0 3px">…</span>`;
+      continue;
+    }
+    html+=`<button class="pg-btn ${i===page?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html+=`<button class="pg-btn" onclick="goPage(${page+1})" ${page===total?'disabled':''}>←</button>`;
+  wrap.innerHTML=html;
+}
+
+function renderCatTabs(){
+  const wrap=document.getElementById('filterTabs');
+  if(!wrap)return;
+  const cats=['all',...new Set(allProducts.map(p=>p.cat).filter(Boolean))];
+  wrap.innerHTML=cats.map(c=>`
+    <button class="ftab ${c===catFilter?'active':''}" onclick="setCat('${c}')">
+      ${c==='all'?`الكل (${allProducts.length})`:CATS[c]||c}
+    </button>`).join('');
+}
+
+function updateMeta(){
+  const el=document.getElementById('searchMeta');
+  if(!el)return;
+  if(query) el.textContent=`${filtered.length} نتيجة للبحث عن "${query}"`;
+  else el.textContent='';
+}
+
+function goPage(pg){
+  const total=Math.ceil(filtered.length/PER_PAGE);
+  if(pg<1||pg>total)return;
+  page=pg;renderProducts();renderPagination();
+  window.scrollTo({top:280,behavior:'smooth'});
+}
+function setCat(c){catFilter=c;applyFilters();renderCatTabs();}
+function clearSearch(){query='';document.getElementById('searchInput').value='';applyFilters();}
+
+// ══ CART ══
+function toast(msg,type='s'){
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;el.textContent=msg;
+  document.getElementById('toastWrap').appendChild(el);
+  setTimeout(()=>el.remove(),3000);
+}
+function saveCart(){localStorage.setItem('ph_cart',JSON.stringify(cart));renderCart();updateBadge();}
+function cartTotal(){return cart.reduce((s,i)=>s+i.price*i.qty,0);}
+function cartCount(){return cart.reduce((s,i)=>s+i.qty,0);}
+function updateBadge(){const b=document.getElementById('cartCount');const n=cartCount();if(b){b.textContent=n;b.style.display=n>0?'flex':'none';}}
+
+function addToCart(p){
+  const ex=cart.find(i=>i.id===p.id);
+  if(ex)ex.qty++;else cart.push({id:p.id,name:p.name,price:p.price,qty:1,icon:p.icon||'💊'});
+  saveCart();toast('✅ تم إضافة '+p.name);openCart();
+}
+function updateQty(id,qty){if(qty<=0){removeItem(id);return;}const i=cart.find(x=>x.id===id);if(i){i.qty=qty;saveCart();}}
+function removeItem(id){cart=cart.filter(i=>i.id!==id);saveCart();}
+
+function renderCart(){
+  const el=document.getElementById('cartItems');if(!el)return;
+  if(!cart.length){el.innerHTML='<div class="cart-empty-state"><div style="font-size:3rem">🛒</div><p style="font-size:13px">سلتك فارغة</p></div>';
+  }else{
+    el.innerHTML=cart.map(i=>`
+      <div class="cart-item">
+        <span class="ci-icon">${i.icon}</span>
+        <div class="ci-info"><div class="ci-name">${i.name}</div><div class="ci-price">${i.price*i.qty} ج.م</div></div>
+        <div class="ci-qty">
+          <button class="qty-btn" onclick="updateQty('${i.id}',${i.qty-1})">−</button>
+          <span class="qty-n">${i.qty}</span>
+          <button class="qty-btn" onclick="updateQty('${i.id}',${i.qty+1})">+</button>
+          <button class="rm-btn" onclick="removeItem('${i.id}')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+  const t=document.getElementById('cartTotal');if(t)t.textContent=cartTotal()+' ج.م';
+}
+
+function openCart(){document.getElementById('cartSidebar').classList.add('open');document.getElementById('cartOverlay').classList.add('open');document.body.style.overflow='hidden';renderCart();}
+function closeCart(){document.getElementById('cartSidebar').classList.remove('open');document.getElementById('cartOverlay').classList.remove('open');document.body.style.overflow='';}
+
+async function submitOrder(){
+  const name=document.getElementById('orderName').value.trim();
+  const phone=document.getElementById('orderPhone').value.trim();
+  const address=document.getElementById('orderAddress').value.trim();
+  if(!cart.length){toast('⚠️ سلتك فارغة!','e');return;}
+  if(!name){toast('⚠️ اكتب اسمك','e');return;}
+  if(!phone){toast('⚠️ اكتب رقمك','e');return;}
+  if(!address){toast('⚠️ اكتب عنوانك','e');return;}
+
+  const btn=document.getElementById('submitOrder');
+  btn.disabled=true;btn.textContent='⏳ جاري الإرسال...';
+  const id='ORD-'+Date.now().toString().slice(-6);
+  try{await fbAddOrder({id,name,phone,address,total:cartTotal(),payMethod,status:'pending',time:new Date().toLocaleString('ar-EG'),ts:String(Date.now()), items: JSON.stringify(cart)});}catch(e){}
+
+  const PAY={cash:'💵 كاش',vodafone:'📱 فودافون كاش',instapay:'⚡ InstaPay'};
+  const items=cart.map(i=>`• ${i.name} × ${i.qty} = ${i.price*i.qty} ج`).join('%0A');
+  window.open(`https://wa.me/201008589529?text=🛒 *طلب جديد — صيدلية د. حاتم عثمان*%0A%0A📋 ${id}%0A👤 ${name}%0A📞 ${phone}%0A📍 ${address}%0A%0A${items}%0A%0A💰 *${cartTotal()} ج.م*%0A${PAY[payMethod]}`,'_blank');
+  cart=[];saveCart();closeCart();
+  document.getElementById('orderName').value='';document.getElementById('orderPhone').value='';document.getElementById('orderAddress').value='';
+  toast('🎉 تم إرسال طلبك!');
+  btn.disabled=false;btn.textContent='✅ إرسال الطلب على واتساب';
+}
+
+// ══ INIT ══
+document.addEventListener('DOMContentLoaded',async()=>{
+  loadTicker();
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobMenu').classList.toggle('open'));
+  document.getElementById('openCart').addEventListener('click',openCart);
+  document.getElementById('closeCart').addEventListener('click',closeCart);
+  document.getElementById('cartOverlay').addEventListener('click',closeCart);
+  document.getElementById('submitOrder').addEventListener('click',submitOrder);
+  document.querySelectorAll('.pay-btn').forEach(b=>b.addEventListener('click',()=>{
+    payMethod=b.dataset.pay;
+    document.querySelectorAll('.pay-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  }));
+  document.querySelectorAll('.crit-btn').forEach(b=>b.addEventListener('click',()=>{
+    criterion=b.dataset.c;
+    document.querySelectorAll('.crit-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+    applyFilters();
+  }));
+  document.getElementById('searchInput').addEventListener('input',e=>{
+    query=e.target.value;applyFilters();
+  });
+  updateBadge();
+
+  // Load products
+  try{
+    allProducts=await fbGetAll();
+    document.getElementById('totalCount').textContent=`أكثر من ${allProducts.length} صنف متاح`;
+    renderCatTabs();applyFilters();
+  }catch(e){
+    document.getElementById('prodGrid').innerHTML='<div class="empty-state"><span class="empty-icon">⚠️</span><p>تعذر تحميل المنتجات — تحقق من الإنترنت</p></div>';
+  }
+});
+</script>
+</body>
+</html>
