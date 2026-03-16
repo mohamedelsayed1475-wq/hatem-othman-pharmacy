@@ -319,7 +319,7 @@ input,select,textarea{font-family:'Cairo',sans-serif;outline:none}
 // ══════════════════════════════════════
 // SECURE API
 // ══════════════════════════════════════
-const API_URL = window.location.port === '3000' ? '' : 'http://localhost:3000'; // Standard logic used in storefront
+const API_URL = ''; // Standard logic used in storefront
 const API_BASE = API_URL + '/api/admin';
 const getAuth = () => ({ 'Authorization': `Bearer ${sessionStorage.getItem('ph_admin_token')}` });
 
