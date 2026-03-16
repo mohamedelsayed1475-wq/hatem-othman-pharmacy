@@ -36,7 +36,7 @@ const loginLimiter   = rateLimit({ windowMs: 15 * 60 * 1000, max: 10,  message: 
 app.use('/api/', generalLimiter);
 
 // Serve frontend HTML files
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname)));
 
 // ══ AUTH MIDDLEWARE ══
 const requireAuth = (req, res, next) => {
